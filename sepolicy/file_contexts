@@ -115,7 +115,6 @@
 /system/bin/sensors\.qcom           u:object_r:sensors_exec:s0
 /system/bin/mm-qcamera-daemon      u:object_r:camera_exec:s0
 /system/bin/qseecomd               u:object_r:tee_exec:s0
-/system/bin/conn_init              u:object_r:conn_init_exec:s0
 /system/bin/time_daemon            u:object_r:time_daemon_exec:s0
 
 # Persist firmware filesystem
