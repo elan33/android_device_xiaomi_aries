@@ -58,11 +58,11 @@ PRODUCT_PACKAGES += \
 	org.apache.http.legacy
 
 
-
+# wifi firmware
 PRODUCT_COPY_FILES += \
-	device/xiaomi/aries/WCNSS_cfg.dat:system/etc/firmware/wlan/prima/WCNSS_cfg.dat \
+	device/xiaomi/aries/WCNSS_cfg.dat:system/vendor/firmware/wlan/prima/WCNSS_cfg.dat \
 	device/xiaomi/aries/WCNSS_qcom_cfg.ini:system/etc/wifi/WCNSS_qcom_cfg.ini \
-	device/xiaomi/aries/WCNSS_qcom_wlan_nv.bin:system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
+	device/xiaomi/aries/WCNSS_qcom_wlan_nv.bin:system/vendor/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin
 
 PRODUCT_COPY_FILES += \
 	device/xiaomi/aries/audio_policy.conf:system/etc/audio_policy.conf
@@ -172,7 +172,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
 	device/xiaomi/aries/init.aries.bt.sh:system/etc/init.aries.bt.sh
 
-ifeq ($(findstring tiny, $(TARGET_PRODUCT)),)
 PRODUCT_PACKAGES += \
 	camera.msm8960 \
 #	libshim_camera
@@ -185,7 +184,6 @@ PRODUCT_PACKAGES += \
 	libOmxCore \
 	libstagefrighthw \
 	libc2dcolorconvert
-endif
 
 # GPS configuration
 PRODUCT_COPY_FILES += \
@@ -207,6 +205,8 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
 	bdAddrLoader \
 	libbt-vendor \
+	libqsap_sdk \
+	libQWiFiSoftApCfg \
 	libwcnss_qmi \
 	wcnss_service
 
@@ -230,10 +230,16 @@ PRODUCT_PACKAGES += \
     libqcomfm_jni \
     FM2
 
-ifeq ($(findstring tiny, $(TARGET_PRODUCT)),)
 PRODUCT_PROPERTY_OVERRIDES += \
 	drm.service.enabled=true
-endif
+
+PRODUCT_PROPERTY_OVERRIDES += \
+	wifi.interface=wlan0 \
+	wifi.supplicant_scan_interval=15 \
+	ro.use_data_netmgrd=true \
+	persist.data.netmgrd.qos.enable=true \
+	persist.data.tcpackprio.enable=true \
+	ro.data.large_tcp_window_size=true
 
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
 	persist.sys.usb.config=mtp
