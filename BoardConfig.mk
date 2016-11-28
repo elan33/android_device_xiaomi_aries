@@ -108,6 +108,15 @@ WITH_DEXPREOPT_BOOT_IMG_ONLY ?= false
 WITH_DEXPREOPT := false
 DONT_DEXPREOPT_PREBUILTS := true
 
+# Enable dex-preoptimization to speed up first boot sequence
+ifeq ($(HOST_OS),linux)
+  ifeq ($(TARGET_BUILD_VARIANT),user)
+    ifeq ($(WITH_DEXPREOPT),)
+      WITH_DEXPREOPT := true
+    endif
+  endif
+endif
+WITH_DEXPREOPT_BOOT_IMG_ONLY ?= true
 
 #for ota
 BLOCK_BASED_OTA := false
@@ -142,6 +151,9 @@ BOARD_SEPOLICY_DIRS += \
 
 BOARD_CHARGER_ENABLE_SUSPEND := true
 
+TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
+TARGET_NEEDS_GCC_LIBC := true
 USE_DEVICE_SPECIFIC_CAMERA:= true
 USE_DEVICE_SPECIFIC_QCOM_PROPRIETARY:= true
 V4L2_BASED_LIBCAM := true
