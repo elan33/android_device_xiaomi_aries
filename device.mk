@@ -319,4 +319,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
         persist.camera.cpp.duplication=false
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)
-$(call inherit-product, hardware/qcom/msm8960/msm8960.mk)
